@@ -32,16 +32,16 @@ function initImageScr(lazyImages, screen){
     if(isAboveViewportBottom.call(lazyimage) && !(lazyimage.classList.contains('src-loaded'))){
       switch(screen){
         case 'mobile':
-          this.src=this.dataset.smallImgsrc;
+          lazyimage.src=lazyimage.dataset.smallImgsrc;
           break;
         case 'medium':
-          this.src=this.dataset.mediumImgsrc;
+          lazyimage.src=lazyimage.dataset.mediumImgsrc;
           break;
         case 'large':
-          this.src=this.dataset.largeImgsrc;
+          lazyimage.src=lazyimage.dataset.largeImgsrc;
           break;
         default:
-          this.src=this.dataset.smallImgsrc;
+          lazyimage.src=lazyimage.dataset.smallImgsrc;
       }
     }
   }
