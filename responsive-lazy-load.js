@@ -4,11 +4,17 @@ function ResponsiveLazyLoadImg(
     medium : 1024
   }){
   this.init = function() {
+    console.log('init');
     var screen = calculateScreen(screenSizes);
     var lazyimages = document.querySelectorAll('.lazy-responsive-image');
     initImageScr(lazyimages, screen);
-    window.onscroll = initImageScr(lazyimages, screen);
-    window.onresize = initImageScr(lazyimages, screen);
+    window.onscroll = function (){
+      initImageScr(lazyimages, screen)
+    };
+    window.onresize = function()
+    {
+      initImageScr(lazyimages, screen);
+    };
 
 
   }
@@ -19,8 +25,12 @@ function calculateScreen(screenSizes){
   return ($(window).width()<screenSizes.medium) ? ($(window).width()<screenSizes.small) ? 'mobile' : 'medium' : 'large';
 }
 
-function isAboveViewportBottom(){
-  return this.offsetTop < window.innerHeight;
+function isAboveViewportBottom(el){
+  var rect = el.getBoundingClientRect();
+
+  return (
+    rect.top <= window.innerHeight
+  );
 }
 
 
@@ -29,7 +39,7 @@ function isAboveViewportBottom(){
 function initImageScr(lazyImages, screen){
   for (var i = 0; i < lazyImages.length; i++) {
     var lazyimage = lazyImages[i];
-    if(isAboveViewportBottom.call(lazyimage) && !(lazyimage.classList.contains('src-loaded'))){
+    if(isAboveViewportBottom(lazyimage) && !(lazyimage.classList.contains('src-loaded'))){
       switch(screen){
         case 'mobile':
           lazyimage.src=lazyimage.dataset.smallImgsrc;
