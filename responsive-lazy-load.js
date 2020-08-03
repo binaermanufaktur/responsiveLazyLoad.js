@@ -36,7 +36,9 @@ function isAboveViewportBottom(el, offSet){
   );
 }
 
-
+function isHiddenOrFixed(el) {
+  return (el.offsetParent === null)
+}
 
 /* Sets image src attribute to highRes data src if screen is highRes and highRes data source is defined.
    Else sets image src attribute to data src attribute if data src attribute is defined.
@@ -45,7 +47,7 @@ function isAboveViewportBottom(el, offSet){
 function initImageScr(lazyImages, screen, offSet){
   for (var i = 0; i < lazyImages.length; i++) {
     var lazyimage = lazyImages[i];
-    if(isAboveViewportBottom(lazyimage, offSet) && !(lazyimage.classList.contains('src-loaded'))){
+    if(isAboveViewportBottom(lazyimage, offSet) && !(lazyimage.classList.contains('src-loaded')) && !isHiddenOrFixed(lazyimage)){
       var newSrc = "";
       switch(screen.size){
         case 'mobile':
