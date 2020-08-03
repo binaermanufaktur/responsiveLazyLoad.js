@@ -2,20 +2,23 @@ function ResponsiveLazyLoadImg(
   breakPoints = {
     small : 640,
     medium : 1024
-  }){
+  },
+  offSet = 100
+  ){
 
-  this.breakPoints = breakPoints;
+  const breakPoints = breakPoints;
+  const offSet = offSet;
 
   this.init = function() {
-    var screen = calculateScreen(this.breakPoints);
+    var screen = calculateScreen(breakPoints);
     var lazyimages = document.querySelectorAll('.lazy-responsive-image');
-    initImageScr(lazyimages, screen);
+    initImageScr(lazyimages, screen, offSet);
     window.onscroll = function (){
-      initImageScr(lazyimages, screen)
+      initImageScr(lazyimages, screen, offSet)
     };
     window.onresize = function()
     {
-      initImageScr(lazyimages, screen);
+      initImageScr(lazyimages, screen, offSet);
     };
 
 
@@ -29,11 +32,11 @@ function calculateScreen(breakPoints){
   return screen;
 }
 
-function isAboveViewportBottom(el){
+function isAboveViewportBottom(el, offSet){
   var rect = el.getBoundingClientRect();
 
   return (
-    rect.top <= window.innerHeight
+    rect.top <= window.innerHeight + offSet
   );
 }
 
@@ -43,10 +46,10 @@ function isAboveViewportBottom(el){
    Else sets image src attribute to data src attribute if data src attribute is defined.
    Else does not change image src attribute.
  */
-function initImageScr(lazyImages, screen){
+function initImageScr(lazyImages, screen, offSet){
   for (var i = 0; i < lazyImages.length; i++) {
     var lazyimage = lazyImages[i];
-    if(isAboveViewportBottom(lazyimage) && !(lazyimage.classList.contains('src-loaded'))){
+    if(isAboveViewportBottom(lazyimage, offSet) && !(lazyimage.classList.contains('src-loaded'))){
       var newSrc = "";
       switch(screen.size){
         case 'mobile':
