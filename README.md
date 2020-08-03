@@ -6,15 +6,26 @@ A small js plugin to handle repsonsive lazy loading of images
 import {ResponsiveLazyLoadImg} from 'path/to/responsive-lazy-load';
 ```
 
-##initialize
+## initialize
 ```javascript
-const responsiveLazyLoadImg = new ResponsiveLazyLoadImg({small: 640, medium: 1024});
+const responsiveLazyLoadImg = new ResponsiveLazyLoadImg({small: 640, medium: 1024}, 100);
 responsiveLazyLoadImg.init();
 ```
-The breakPoints object is optional and defaults to the values depicted here (`{small: 640, medium: 1024}`.  
+Parameters (optional):
+* The breakPoints object defines the breakpoints for the different data-src in the img tag.  
+ It defaults to the values depicted here:  
+ `{small: 640, medium: 1024}`.  
+ We calculate screen size as follows:
+  * small screen: 0 <= window.innerWidth < small
+  * medium screen:  small <= window.innerWidth < medium
+  * large screen: medium <= window.innerWidth  
+ 
+* The offSet number defines how much pixels below the fold (or above with negative value) the image src is injected and defaults to:  
+``100`` 
+ 
 Typically use the ``init()`` function on DOM loaded or DOM ready.
 
-##usage
+## usage
 use the following markup on your images:
 ```html
 <img
@@ -27,3 +38,5 @@ use the following markup on your images:
     data-large-imgsrc-highres="/path/to/imageForLargeScreensInHighRes.jpg"
     src="/path/to/placeholder.jpg">
 ```
+The highRes values are used if a [devicePixelRatio](https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio) > 1 is detected (i.e. for retina displays)  
+If no highRes value is defined, we fall back to the standard data-imgsrc for that screen size, if no data-imgsrc for that screen size is defined we fall back to the placeholder image.

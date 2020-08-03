@@ -27,7 +27,7 @@ function ResponsiveLazyLoadImg(
 export {ResponsiveLazyLoadImg};
 
 function calculateScreen(breakPoints){
-  screen.size = ($(window).width()<breakPoints.medium) ? ($(window).width()<breakPoints.small) ? 'mobile' : 'medium' : 'large';
+  screen.size = (window.innerWidth<breakPoints.medium) ? (window.innerWidth<breakPoints.small) ? 'mobile' : 'medium' : 'large';
   screen.isHighRes = (window.devicePixelRatio>1);
   return screen;
 }
