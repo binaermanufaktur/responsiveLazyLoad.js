@@ -1,10 +1,13 @@
 function ResponsiveLazyLoadImg(
-  screenSizes = {
+  breakPoints = {
     small : 640,
     medium : 1024
   }){
+
+  this.breakPoints = breakPoints;
+
   this.init = function() {
-    var screen = calculateScreen(screenSizes);
+    var screen = calculateScreen(this.breakPoints);
     var lazyimages = document.querySelectorAll('.lazy-responsive-image');
     initImageScr(lazyimages, screen);
     window.onscroll = function (){
@@ -20,8 +23,8 @@ function ResponsiveLazyLoadImg(
 }
 export {ResponsiveLazyLoadImg};
 
-function calculateScreen(screenSizes){
-  screen.size = ($(window).width()<screenSizes.medium) ? ($(window).width()<screenSizes.small) ? 'mobile' : 'medium' : 'large';
+function calculateScreen(breakPoints){
+  screen.size = ($(window).width()<breakPoints.medium) ? ($(window).width()<breakPoints.small) ? 'mobile' : 'medium' : 'large';
   screen.isHighRes = (window.devicePixelRatio>1);
   return screen;
 }
