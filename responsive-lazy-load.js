@@ -5,10 +5,6 @@ function ResponsiveLazyLoadImg(
   },
   offSet = 100
   ){
-
-  const breakPoints = breakPoints;
-  const offSet = offSet;
-
   this.init = function() {
     var screen = calculateScreen(breakPoints);
     var lazyimages = document.querySelectorAll('.lazy-responsive-image');
