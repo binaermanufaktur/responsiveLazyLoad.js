@@ -23,7 +23,7 @@ Parameters (optional):
 * The offSet number defines how much pixels below the fold (or above with negative value) the image src is injected and defaults to:  
 ``100`` 
  
-Typically use the ``init()`` function on DOM loaded or DOM ready.
+Typically use the ``init()`` function on DOM loaded or DOM ready and whenever you need to reinitialize responsiveLazyLoad images.
 
 ## usage
 use the following markup on your images:
