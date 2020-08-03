@@ -77,9 +77,8 @@ function initImageScr(lazyImages, screen){
         if (newSrc !== null){
           lazyimage.src = newSrc;
         }
-        lazyimage.classList.add('src-loaded');
-        srcLoaded = true;
       }
+      lazyimage.classList.add('src-loaded');
     }
   }
 
