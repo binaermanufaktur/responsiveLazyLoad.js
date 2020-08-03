@@ -36,27 +36,49 @@ function isAboveViewportBottom(el){
 
 
 
-
+/* Sets image src attribute to highRes data src if screen is highRes and highRes data source is defined.
+   Else sets image src attribute to data src attribute if data src attribute is defined.
+   Else does not change image src attribute.
+ */
 function initImageScr(lazyImages, screen){
   for (var i = 0; i < lazyImages.length; i++) {
     var lazyimage = lazyImages[i];
     if(isAboveViewportBottom(lazyimage) && !(lazyimage.classList.contains('src-loaded'))){
-      switch(screen){
+      var newSrc = "";
+      switch(screen.size){
         case 'mobile':
-          lazyimage.src=lazyimage.dataset.smallImgsrc;
+          newSrc = screen.isHighRes ?
+            lazyimage.dataset.smallImgsrcHighres!==undefined ?
+              lazyimage.dataset.smallImgsrcHighres : lazyimage.dataset.smallImgsrc!==undefined ?
+                lazyimage.dataset.smallImgsrc : null : lazyimage.dataset.smallImgsrc;
           break;
         case 'medium':
-          lazyimage.src=lazyimage.dataset.mediumImgsrc;
+          newSrc = screen.isHighRes ?
+            lazyimage.dataset.mediumImgsrcHighres!==undefined ?
+              lazyimage.dataset.mediumImgsrcHighres : lazyimage.dataset.mediumImgsrc!==undefined ?
+                lazyimage.dataset.mediumImgsrc : null : lazyimage.dataset.mediumImgsrc;
           break;
         case 'large':
-          lazyimage.src=lazyimage.dataset.largeImgsrc;
+          newSrc = screen.isHighRes ?
+            lazyimage.dataset.largeImgsrcHighres!==undefined ?
+              lazyimage.dataset.largeImgsrcHighres : lazyimage.dataset.largeImgsrc!==undefined ?
+                lazyimage.dataset.largeImgsrc : null : lazyimage.dataset.largeImgsrc;
           break;
         default:
-          lazyimage.src=lazyimage.dataset.smallImgsrc;
+          newSrc = screen.isHighRes ?
+            lazyimage.dataset.smallImgsrcHighres!==undefined ?
+              lazyimage.dataset.smallImgsrcHighres : lazyimage.dataset.smallImgsrc!==undefined ?
+                lazyimage.dataset.smallImgsrc : null : lazyimage.dataset.smallImgsrc;
+      }
+      if(lazyimage.src !== newSrc){
+        if (newSrc !== null){
+          lazyimage.src = newSrc;
+        }
+        lazyimage.classList.add('src-loaded');
+        srcLoaded = true;
       }
     }
   }
-
 
 }
 
